@@ -1,0 +1,330 @@
+# 🛠️ Taller de Nivelación: Java + Maven
+
+## 🎯 Objetivo
+Este taller tiene como propósito nivelar conocimientos fundamentales en Java y Maven antes de iniciar el curso formal. Aprenderás a estructurar proyectos, compilar desde consola, empaquetar en `.jar`, y usar Maven para la gestión del ciclo de vida de un proyecto Java.
+
+---
+
+## 👨‍💻 Conceptos básicos de Programación Orientada a Objetos (POO) en Java
+
+Java es un lenguaje orientado a objetos, lo que significa que se basa en la creación y manipulación de objetos que representan entidades del mundo real.
+
+### 🔹 Clases y Objetos
+- **Clase**: Es un molde o plantilla que describe las características y comportamientos comunes de un tipo de objeto.
+- **Objeto**: Es una instancia concreta de una clase.
+
+```java
+public class Estudiante {
+    String nombre;
+    int edad;
+
+    public void saludar() {
+        System.out.println("Hola, soy " + nombre);
+    }
+}
+```
+
+```java
+Estudiante e = new Estudiante();
+e.nombre = "Juan";
+e.edad = 20;
+e.saludar();
+```
+
+### 🔹 Encapsulamiento
+Protege los datos internos de una clase, permitiendo acceder a ellos solo a través de métodos públicos.
+
+```java
+public class Persona {
+    private String nombre;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+```
+
+### 🔹 Herencia
+Permite que una clase herede atributos y métodos de otra clase.
+
+```java
+public class Empleado extends Persona {
+    private double salario;
+
+    public double getSalario() {
+        return salario;
+    }
+}
+```
+
+---
+
+### 🔹 Polimorfismo
+Permite que un objeto adopte múltiples formas, como cuando una clase sobrescribe un método de su superclase.
+
+---
+
+## ⚙️ Herramientas del lenguaje Java
+
+### 🔸 `javac`
+Es el **compilador de Java**, que transforma archivos `.java` en archivos `.class` (bytecode que puede interpretar la máquina virtual de Java).
+
+```bash
+javac MiClase.java
+```
+
+### 🔸 `java`
+Es el **intérprete de la JVM (Java Virtual Machine)** que ejecuta archivos `.class`.
+
+```bash
+java MiClase
+```
+
+### 🔸 `.jar` (Java ARchive)
+Es un formato comprimido que contiene múltiples `.class`, imágenes, recursos y el archivo `MANIFEST.MF`. Permite distribuir aplicaciones Java.
+
+```bash
+jar cfm MiApp.jar META-INF/MANIFEST.MF -C bin .
+java -jar MiApp.jar
+```
+
+## ⚙️ Configuración de Entorno: JAVA_HOME y MAVEN_HOME
+
+### 🔧 Paso 1: ¿Qué son?
+
+- `JAVA_HOME`: variable de entorno que apunta a la carpeta donde está instalado Java (por ejemplo, `C:\Program Files\Java\jdk-17`)
+- `MAVEN_HOME`: variable que apunta a la carpeta donde se instaló Maven (por ejemplo, `C:\apache-maven-3.9.0`)
+
+---
+
+### 🪟 Windows
+
+#### 1. Buscar "Variables de entorno" en el Panel de Control o buscador.
+#### 2. Crear o editar las variables:
+
+- **JAVA_HOME** → `C:\Program Files\Java\jdk-17`
+- **MAVEN_HOME** → `C:\apache-maven-3.9.0`
+
+#### 3. Editar la variable `Path` y agregar:
+
+- `%JAVA_HOME%\bin`
+- `%MAVEN_HOME%\bin`
+
+---
+
+### 🐧 Linux / macOS
+
+Editar `~/.bashrc` o `~/.zshrc` y agregar:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export MAVEN_HOME=/opt/apache-maven
+export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+```
+
+Luego, recarga el archivo:
+
+```bash
+source ~/.bashrc
+```
+
+---
+
+### ✅ Validar instalación
+
+#### Verificar que Java esté disponible:
+
+Abre una terminal con tecla Windows --> cmd
+
+```bash
+java -version
+javac -version
+```
+
+Debe mostrar una versión como: `javac 17.0.8`
+
+#### Verificar Maven:
+
+```bash
+mvn -version
+```
+
+Debe mostrar:
+
+```
+Apache Maven 3.9.X
+Java version: 17.X
+```
+
+Si todo eso funciona correctamente, ya estás listo para compilar tus proyectos.
+
+---
+
+## 📁 Parte 1: Fundamentos de un Proyecto Java
+
+### Estructura recomendada
+
+```
+MiPrimerProyecto/
+├── src/
+│   └── main/
+│       └── java/
+│           └── co/
+│               └── edu/
+│                   └── unisabana/
+│                       ├── Main.java
+│                       └── modelo/
+│                           └── Estudiante.java
+├── bin/
+└── META-INF/
+    └── MANIFEST.MF
+```
+
+### Compilar desde consola
+
+```bash
+javac -d bin src/main/java/co/edu/unisabana/modelo/Estudiante.java src/main/java/co/edu/unisabana/Main.java
+```
+
+### Ejecutar
+
+```bash
+java -cp bin co.edu.unisabana.Main
+```
+
+---
+
+## 📦 Crear archivo `.jar` ejecutable
+
+1. Crea la carpeta `META-INF` y dentro el archivo `MANIFEST.MF`:
+
+```
+Manifest-Version: 1.0
+Main-Class: co.edu.unisabana.Main
+```
+
+> Asegúrate de dejar una línea en blanco al final del archivo.
+
+Si esto no funciona prueba con los siguientes comando en CMD:
+
+```bash
+mkdir META-INF 2>nul
+(
+echo Manifest-Version: 1.0
+echo Main-Class: co.edu.unisabana.Main
+echo.
+) > META-INF\MANIFEST.MF
+```
+
+2. Crear el `.jar`:
+
+```bash
+jar cfm MiApp.jar META-INF\MANIFEST.MF -C bin .
+```
+
+Nota: usa \ en Windows. Si tu ruta tiene espacios, pon comillas:
+```bash
+jar cfm MiApp.jar "META-INF\MANIFEST.MF" -C bin .
+```
+
+jar xf MiApp.jar META-INF/MANIFEST.MF
+type META-INF\MANIFEST.MF
+
+3. Verifica que el JAR sí contiene tu Main-Class
+```bash
+jar xf MiApp.jar META-INF/MANIFEST.MF
+type META-INF\MANIFEST.MF
+```
+Deberías ver:
+
+```
+Manifest-Version: 1.0
+Main-Class: co.edu.unisabana.Main
+```
+
+(Con una línea en blanco al final.)
+
+4. Ejecutar:
+
+```bash
+java -jar MiApp.jar
+```
+
+---
+
+## ⚙️ Parte 2: Introducción a Maven
+
+### ¿Qué es Maven?
+
+Maven es una herramienta de construcción y gestión de proyectos que:
+- Compila, prueba, empaqueta y despliega código.
+- Administra dependencias externas automáticamente.
+- Estandariza la estructura del proyecto.
+
+### Estructura Maven
+
+```
+MiProyectoMaven/
+├── pom.xml
+└── src/
+    ├── main/java/...
+    └── test/java/...
+```
+
+### ¿Qué es `pom.xml`?
+
+Define el proyecto, metadatos, dependencias, plugins y fases del ciclo de vida.
+
+---
+
+## 🌐 Repositorio Central
+
+Maven usa el repositorio central (https://repo.maven.apache.org) para descargar librerías automáticamente. También crea un repositorio local en `~/.m2/repository`.
+
+---
+
+## 🔁 Ciclo de Vida de Maven
+
+| Fase      | Propósito                            |
+|-----------|--------------------------------------|
+| validate  | Verifica la estructura del proyecto  |
+| compile   | Compila el código fuente             |
+| test      | Ejecuta pruebas                      |
+| package   | Empaqueta en `.jar` o `.war`         |
+| install   | Instala en el repositorio local      |
+| deploy    | Publica en un repositorio remoto     |
+
+---
+
+## 🧪 Actividad práctica (no calificable)
+
+1. Crear un proyecto Maven:
+
+```bash
+mvn archetype:generate -DgroupId=co.edu.unisabana -DartifactId=GestorEstudiantes -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+
+2. Implementar clases en `src/main/java`.
+
+3. Ejecutar:
+
+```bash
+mvn compile
+mvn package
+java -cp target/GestorEstudiantes-1.0-SNAPSHOT.jar co.edu.unisabana.App
+```
+
+---
+
+## 📚 Recursos
+
+- [Documentación oficial de Maven](https://maven.apache.org/)
+- [Repositorio Central Maven](https://search.maven.org/)
+- [Guía rápida de Maven](https://maven.apache.org/guides/getting-started/)
+
+
+---
