@@ -226,19 +226,19 @@ echo.
 jar cfm MiApp.jar META-INF\MANIFEST.MF -C bin .
 ```
 
-Nota: usa \ en Windows. Si tu ruta tiene espacios, pon comillas:
+> Nota: usa \ en Windows. Si tu ruta tiene espacios, pon comillas:
+
 ```bash
 jar cfm MiApp.jar "META-INF\MANIFEST.MF" -C bin .
 ```
 
-jar xf MiApp.jar META-INF/MANIFEST.MF
-type META-INF\MANIFEST.MF
-
 3. Verifica que el JAR sí contiene tu Main-Class
+
 ```bash
 jar xf MiApp.jar META-INF/MANIFEST.MF
 type META-INF\MANIFEST.MF
 ```
+
 Deberías ver:
 
 ```
@@ -246,7 +246,7 @@ Manifest-Version: 1.0
 Main-Class: co.edu.unisabana.Main
 ```
 
-(Con una línea en blanco al final.)
+> (Con una línea en blanco al final.)
 
 4. Ejecutar:
 
