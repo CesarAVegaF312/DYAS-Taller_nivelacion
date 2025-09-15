@@ -300,23 +300,178 @@ Maven usa el repositorio central (https://repo.maven.apache.org) para descargar 
 
 ---
 
-## 🧪 Actividad práctica (no calificable)
+# 📦 Guía: Creación de un proyecto Maven y repositorio
 
-1. Crear un proyecto Maven:
+Este documento explica cómo **crear un proyecto Maven desde cero**, configurarlo, ejecutarlo y luego **subirlo a un repositorio GitHub** como guía de buenas prácticas.
 
-```bash
-mvn archetype:generate -DgroupId=co.edu.unisabana -DartifactId=GestorEstudiantes -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+---
+
+## 1. 🔧 Requisitos previos
+Asegúrate de tener instalado en tu máquina:
+- **Java JDK** (versión 8 o superior) → `java -version`
+- **Maven** (Apache Maven 3.x o superior) → `mvn -version`
+- **Git** → `git --version`
+- Una cuenta en [GitHub](https://github.com/)
+
+---
+
+## 2. 📂 Crear un proyecto Maven
+Ejecuta en la terminal:
+
+```sh
+mvn archetype:generate   -DgroupId=com.ejemplo.app   -DartifactId=MiProyectoMaven   -DarchetypeArtifactId=maven-archetype-quickstart   -DinteractiveMode=false
 ```
 
-2. Implementar clases en `src/main/java`.
+Esto generará la estructura:
+```
+MiProyectoMaven/
+ ├── pom.xml
+ ├── src/
+ │   ├── main/java/com/ejemplo/app/App.java
+ │   └── test/java/com/ejemplo/app/AppTest.java
+```
 
-3. Ejecutar:
+---
 
-```bash
+## 3. ⚙️ Archivo `pom.xml` comentado
+Ejemplo básico con plugin para ejecutar el proyecto:
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Identificador de la organización o paquete base -->
+  <groupId>com.ejemplo.app</groupId>
+  <!-- Nombre del proyecto -->
+  <artifactId>MiProyectoMaven</artifactId>
+  <!-- Versión del proyecto -->
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <!-- Configuración del compilador Java -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <!-- Dependencia para pruebas unitarias con JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Plugin para ejecutar con mvn exec:java -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <mainClass>com.ejemplo.app.App</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
+
+---
+
+## 4. 🏗️ Compilar y ejecutar
+- Compilar:
+```sh
 mvn compile
-mvn package
-java -cp target/GestorEstudiantes-1.0-SNAPSHOT.jar co.edu.unisabana.App
 ```
+
+- Ejecutar pruebas:
+```sh
+mvn test
+```
+
+- Empaquetar `.jar`:
+```sh
+mvn package
+```
+
+- Ejecutar con `java -cp`:
+```sh
+java -cp target/MiProyectoMaven-1.0-SNAPSHOT.jar com.ejemplo.app.App
+```
+
+- Ejecutar con `mvn exec:java` (dos opciones):
+
+a) Con plugin configurado en el `pom.xml`:
+```sh
+mvn exec:java
+```
+
+b) Sin plugin, indicando el `mainClass` manualmente:
+```sh
+mvn exec:java -Dexec.mainClass="com.ejemplo.app.App"
+```
+
+Con argumentos:
+```sh
+mvn exec:java -Dexec.mainClass="com.ejemplo.app.App" -Dexec.args="arg1 arg2"
+```
+
+---
+
+## 5. 🚀 Crear repositorio Git
+
+1. Inicializar Git en el proyecto:
+```sh
+cd MiProyectoMaven
+git init
+```
+
+2. Crear un archivo `.gitignore` (ejemplo para Maven):
+```
+target/
+*.class
+*.log
+*.idea/
+*.iml
+*.classpath
+*.project
+.settings/
+```
+Guárdalo como `.gitignore` en la raíz del proyecto.
+
+3. Hacer primer commit:
+```sh
+git add .
+git commit -m "Inicialización del proyecto Maven"
+```
+
+4. Crear un repositorio en GitHub desde la web.
+
+5. Conectar el proyecto local con el remoto:
+```sh
+git remote add origin https://github.com/USUARIO/MiProyectoMaven.git
+git branch -M main
+git push -u origin main
+```
+
+---
+
+## ✅ Resumen de flujo Maven + Git
+1. Crear proyecto → `mvn archetype:generate`  
+2. Compilar → `mvn compile`  
+3. Probar → `mvn test`  
+4. Empaquetar → `mvn package`  
+5. Ejecutar → `mvn exec:java -Dexec.mainClass="com.ejemplo.app.App"`  
+6. Subir a GitHub → `git push`  
+
+---
+
+Con esto ya tendrás un **proyecto Maven configurado, ejecutable y versionado en GitHub** como guía de referencia.
 
 ---
 
