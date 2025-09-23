@@ -5,6 +5,43 @@ Este taller tiene como propósito nivelar conocimientos fundamentales en Java y 
 
 ---
 
+## 📑 Índice
+
+- [👨‍💻 Conceptos básicos de Programación Orientada a Objetos (POO) en Java](#-conceptos-básicos-de-programación-orientada-a-objetos-poo-en-java)
+  - [Clases y Objetos](#-clases-y-objetos)
+  - [Encapsulamiento](#-encapsulamiento)
+  - [Herencia](#-herencia)
+  - [Polimorfismo](#-polimorfismo)
+- [⚙️ Herramientas del lenguaje Java](#️-herramientas-del-lenguaje-java)
+  - [`javac`](#-javac)
+  - [`java`](#-java)
+  - [`.jar` (Java ARchive)](#-jar-java-archive)
+- [⚙️ Configuración de Entorno: JAVA_HOME y MAVEN_HOME](#️-configuración-de-entorno-java_home-y-maven_home)
+  - [Windows](#-windows)
+  - [Linux / macOS](#-linux--macos)
+  - [Validar instalación](#-validar-instalación)
+- [📁 Parte 1: Fundamentos de un Proyecto Java](#-parte-1-fundamentos-de-un-proyecto-java)
+  - [Estructura recomendada](#estructura-recomendada)
+  - [Compilar desde consola](#compilar-desde-consola)
+  - [Ejecutar](#ejecutar)
+  - [📦 Crear archivo `.jar` ejecutable](#-crear-archivo-jar-ejecutable)
+- [⚙️ Parte 2: Introducción a Maven](#️-parte-2-introducción-a-maven)
+  - [¿Qué es Maven?](#qué-es-maven)
+  - [Estructura Maven](#estructura-maven)
+  - [¿Qué es `pom.xml`?](#qué-es-pomxml)
+  - [🌐 Repositorio Central](#-repositorio-central)
+  - [🔁 Ciclo de Vida de Maven](#-ciclo-de-vida-de-maven)
+- [📦 Guía: Creación de un proyecto Maven y repositorio](#-guía-creación-de-un-proyecto-maven-y-repositorio)
+  - [Requisitos previos](#-requisitos-previos)
+  - [Crear un proyecto Maven](#-crear-un-proyecto-maven)
+  - [Archivo `pom.xml`](#-archivo-pomxml-comentado)
+  - [Compilar y ejecutar](#-compilar-y-ejecutar)
+  - [Crear repositorio Git](#-crear-repositorio-git)
+  - [Resumen de flujo Maven + Git](#-resumen-de-flujo-maven--git)
+- [📚 Recursos](#-recursos)
+
+---
+
 ## 👨‍💻 Conceptos básicos de Programación Orientada a Objetos (POO) en Java
 
 Java es un lenguaje orientado a objetos, lo que significa que se basa en la creación y manipulación de objetos que representan entidades del mundo real.
@@ -198,7 +235,7 @@ java -cp bin co.edu.unisabana.Main
 
 ---
 
-## 📦 Crear archivo `.jar` ejecutable
+### 📦 Crear archivo `.jar` ejecutable
 
 1. Crea la carpeta `META-INF` y dentro el archivo `MANIFEST.MF`:
 
@@ -281,13 +318,13 @@ Define el proyecto, metadatos, dependencias, plugins y fases del ciclo de vida.
 
 ---
 
-## 🌐 Repositorio Central
+### 🌐 Repositorio Central
 
 Maven usa el repositorio central (https://repo.maven.apache.org) para descargar librerías automáticamente. También crea un repositorio local en `~/.m2/repository`.
 
 ---
 
-## 🔁 Ciclo de Vida de Maven
+### 🔁 Ciclo de Vida de Maven
 
 | Fase      | Propósito                            |
 |-----------|--------------------------------------|
@@ -333,7 +370,7 @@ MiProyectoMaven/
 
 ---
 
-## 3. ⚙️ Archivo `pom.xml` comentado
+## 3. ⚙️ Archivo `pom.xml`
 Ejemplo básico con plugin para ejecutar el proyecto:
 
 ```xml
