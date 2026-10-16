@@ -1,52 +1,68 @@
-# 🛠️ Taller de Nivelación: Java + Maven
+# Taller de Nivelación: Java + Maven
 
-## 🎯 Objetivo
+## Objetivo
 Este taller tiene como propósito nivelar conocimientos fundamentales en Java y Maven antes de iniciar el curso formal. Aprenderás a estructurar proyectos, compilar desde consola, empaquetar en `.jar`, y usar Maven para la gestión del ciclo de vida de un proyecto Java.
 
 ---
 
-## 📑 Índice
+## Cómo ejecutar este proyecto
 
-- [👨‍💻 Conceptos básicos de Programación Orientada a Objetos (POO) en Java](#-conceptos-básicos-de-programación-orientada-a-objetos-poo-en-java)
-  - [Clases y Objetos](#-clases-y-objetos)
-  - [Encapsulamiento](#-encapsulamiento)
-  - [Herencia](#-herencia)
-  - [Polimorfismo](#-polimorfismo)
-- [⚙️ Herramientas del lenguaje Java](#️-herramientas-del-lenguaje-java)
-  - [`javac`](#-javac)
-  - [`java`](#-java)
-  - [`.jar` (Java ARchive)](#-jar-java-archive)
-- [⚙️ Configuración de Entorno: JAVA_HOME y MAVEN_HOME](#️-configuración-de-entorno-java_home-y-maven_home)
-  - [Windows](#-windows)
-  - [Linux / macOS](#-linux--macos)
-  - [Validar instalación](#-validar-instalación)
-- [📁 Parte 1: Fundamentos de un Proyecto Java](#-parte-1-fundamentos-de-un-proyecto-java)
-  - [Estructura recomendada](#estructura-recomendada)
-  - [Compilar desde consola](#compilar-desde-consola)
-  - [Ejecutar](#ejecutar)
-  - [📦 Crear archivo `.jar` ejecutable](#-crear-archivo-jar-ejecutable)
-- [⚙️ Parte 2: Introducción a Maven](#️-parte-2-introducción-a-maven)
-  - [¿Qué es Maven?](#qué-es-maven)
-  - [Estructura Maven](#estructura-maven)
-  - [¿Qué es `pom.xml`?](#qué-es-pomxml)
-  - [🌐 Repositorio Central](#-repositorio-central)
-  - [🔁 Ciclo de Vida de Maven](#-ciclo-de-vida-de-maven)
-- [📦 Guía: Creación de un proyecto Maven y repositorio](#-guía-creación-de-un-proyecto-maven-y-repositorio)
-  - [Requisitos previos](#-requisitos-previos)
-  - [Crear un proyecto Maven](#-crear-un-proyecto-maven)
-  - [Archivo `pom.xml`](#-archivo-pomxml-comentado)
-  - [Compilar y ejecutar](#-compilar-y-ejecutar)
-  - [Crear repositorio Git](#-crear-repositorio-git)
-  - [Resumen de flujo Maven + Git](#-resumen-de-flujo-maven--git)
-- [📚 Recursos](#-recursos)
+Este repositorio (`co.edu.unisabana` / `GestorEstudiantes`) requiere **JDK 17** y **Maven 3.x**. Desde la raíz del proyecto:
+
+```bash
+mvn compile          # compila el código fuente
+mvn test             # ejecuta las pruebas JUnit de src/test
+mvn package          # genera target/GestorEstudiantes-1.0-SNAPSHOT.jar
+
+java -cp target/classes co.edu.unisabana.Main                       # ejecutar sin empaquetar
+java -jar target/GestorEstudiantes-1.0-SNAPSHOT.jar                 # ejecutar el .jar
+mvn exec:java                                                       # ejecutar con el plugin exec configurado en el pom.xml
+```
 
 ---
 
-## 👨‍💻 Conceptos básicos de Programación Orientada a Objetos (POO) en Java
+## Índice
+
+- [Conceptos básicos de Programación Orientada a Objetos (POO) en Java](#conceptos-básicos-de-programación-orientada-a-objetos-poo-en-java)
+  - [Clases y Objetos](#clases-y-objetos)
+  - [Encapsulamiento](#encapsulamiento)
+  - [Herencia](#herencia)
+  - [Polimorfismo](#polimorfismo)
+- [Herramientas del lenguaje Java](#herramientas-del-lenguaje-java)
+  - [`javac`](#javac)
+  - [`java`](#java)
+  - [`.jar` (Java ARchive)](#jar-java-archive)
+- [Configuración de Entorno: JAVA_HOME y MAVEN_HOME](#configuración-de-entorno-java_home-y-maven_home)
+  - [Windows](#windows)
+  - [Linux / macOS](#linux--macos)
+  - [Validar instalación](#validar-instalación)
+- [Parte 1: Fundamentos de un Proyecto Java](#parte-1-fundamentos-de-un-proyecto-java)
+  - [Estructura recomendada](#estructura-recomendada)
+  - [Compilar desde consola](#compilar-desde-consola)
+  - [Ejecutar](#ejecutar)
+  - [Crear archivo `.jar` ejecutable](#crear-archivo-jar-ejecutable)
+- [Parte 2: Introducción a Maven](#parte-2-introducción-a-maven)
+  - [¿Qué es Maven?](#qué-es-maven)
+  - [Estructura Maven](#estructura-maven)
+  - [¿Qué es `pom.xml`?](#qué-es-pomxml)
+  - [Repositorio Central](#repositorio-central)
+  - [Ciclo de Vida de Maven](#ciclo-de-vida-de-maven)
+- [Guía: Creación de un proyecto Maven y repositorio](#guía-creación-de-un-proyecto-maven-y-repositorio)
+  - [Requisitos previos](#1-requisitos-previos)
+  - [Crear un proyecto Maven](#2-crear-un-proyecto-maven)
+  - [Archivo `pom.xml`](#3-archivo-pomxml)
+  - [Compilar y ejecutar](#4-compilar-y-ejecutar)
+  - [Crear repositorio Git](#5-crear-repositorio-git)
+  - [Resumen de flujo Maven + Git](#resumen-de-flujo-maven--git)
+- [Recursos](#recursos)
+
+---
+
+## Conceptos básicos de Programación Orientada a Objetos (POO) en Java
 
 Java es un lenguaje orientado a objetos, lo que significa que se basa en la creación y manipulación de objetos que representan entidades del mundo real.
 
-### 🔹 Clases y Objetos
+### Clases y Objetos
 - **Clase**: Es un molde o plantilla que describe las características y comportamientos comunes de un tipo de objeto.
 - **Objeto**: Es una instancia concreta de una clase.
 
@@ -68,7 +84,7 @@ e.edad = 20;
 e.saludar();
 ```
 
-### 🔹 Encapsulamiento
+### Encapsulamiento
 Protege los datos internos de una clase, permitiendo acceder a ellos solo a través de métodos públicos.
 
 ```java
@@ -85,7 +101,7 @@ public class Persona {
 }
 ```
 
-### 🔹 Herencia
+### Herencia
 Permite que una clase herede atributos y métodos de otra clase.
 
 ```java
@@ -100,28 +116,28 @@ public class Empleado extends Persona {
 
 ---
 
-### 🔹 Polimorfismo
+### Polimorfismo
 Permite que un objeto adopte múltiples formas, como cuando una clase sobrescribe un método de su superclase.
 
 ---
 
-## ⚙️ Herramientas del lenguaje Java
+## Herramientas del lenguaje Java
 
-### 🔸 `javac`
+### `javac`
 Es el **compilador de Java**, que transforma archivos `.java` en archivos `.class` (bytecode que puede interpretar la máquina virtual de Java).
 
 ```bash
 javac MiClase.java
 ```
 
-### 🔸 `java`
+### `java`
 Es el **intérprete de la JVM (Java Virtual Machine)** que ejecuta archivos `.class`.
 
 ```bash
 java MiClase
 ```
 
-### 🔸 `.jar` (Java ARchive)
+### `.jar` (Java ARchive)
 Es un formato comprimido que contiene múltiples `.class`, imágenes, recursos y el archivo `MANIFEST.MF`. Permite distribuir aplicaciones Java.
 
 ```bash
@@ -129,16 +145,16 @@ jar cfm MiApp.jar META-INF/MANIFEST.MF -C bin .
 java -jar MiApp.jar
 ```
 
-## ⚙️ Configuración de Entorno: JAVA_HOME y MAVEN_HOME
+## Configuración de Entorno: JAVA_HOME y MAVEN_HOME
 
-### 🔧 Paso 1: ¿Qué son?
+### Paso 1: ¿Qué son?
 
 - `JAVA_HOME`: variable de entorno que apunta a la carpeta donde está instalado Java (por ejemplo, `C:\Program Files\Java\jdk-17`)
 - `MAVEN_HOME`: variable que apunta a la carpeta donde se instaló Maven (por ejemplo, `C:\apache-maven-3.9.0`)
 
 ---
 
-### 🪟 Windows
+### Windows
 
 #### 1. Buscar "Variables de entorno" en el Panel de Control o buscador.
 #### 2. Crear o editar las variables:
@@ -153,7 +169,7 @@ java -jar MiApp.jar
 
 ---
 
-### 🐧 Linux / macOS
+### Linux / macOS
 
 Editar `~/.bashrc` o `~/.zshrc` y agregar:
 
@@ -171,7 +187,7 @@ source ~/.bashrc
 
 ---
 
-### ✅ Validar instalación
+### Validar instalación
 
 #### Verificar que Java esté disponible:
 
@@ -201,7 +217,7 @@ Si todo eso funciona correctamente, ya estás listo para compilar tus proyectos.
 
 ---
 
-## 📁 Parte 1: Fundamentos de un Proyecto Java
+## Parte 1: Fundamentos de un Proyecto Java
 
 ### Estructura recomendada
 
@@ -235,7 +251,7 @@ java -cp bin co.edu.unisabana.Main
 
 ---
 
-### 📦 Crear archivo `.jar` ejecutable
+### Crear archivo `.jar` ejecutable
 
 1. Crea la carpeta `META-INF` y dentro el archivo `MANIFEST.MF`:
 
@@ -293,7 +309,7 @@ java -jar MiApp.jar
 
 ---
 
-## ⚙️ Parte 2: Introducción a Maven
+## Parte 2: Introducción a Maven
 
 ### ¿Qué es Maven?
 
@@ -318,13 +334,13 @@ Define el proyecto, metadatos, dependencias, plugins y fases del ciclo de vida.
 
 ---
 
-### 🌐 Repositorio Central
+### Repositorio Central
 
 Maven usa el repositorio central (https://repo.maven.apache.org) para descargar librerías automáticamente. También crea un repositorio local en `~/.m2/repository`.
 
 ---
 
-### 🔁 Ciclo de Vida de Maven
+### Ciclo de Vida de Maven
 
 | Fase      | Propósito                            |
 |-----------|--------------------------------------|
@@ -337,13 +353,13 @@ Maven usa el repositorio central (https://repo.maven.apache.org) para descargar 
 
 ---
 
-# 📦 Guía: Creación de un proyecto Maven y repositorio
+# Guía: Creación de un proyecto Maven y repositorio
 
 Este documento explica cómo **crear un proyecto Maven desde cero**, configurarlo, ejecutarlo y luego **subirlo a un repositorio GitHub** como guía de buenas prácticas.
 
 ---
 
-## 1. 🔧 Requisitos previos
+## 1. Requisitos previos
 Asegúrate de tener instalado en tu máquina:
 - **Java JDK** (versión 8 o superior) → `java -version`
 - **Maven** (Apache Maven 3.x o superior) → `mvn -version`
@@ -352,7 +368,7 @@ Asegúrate de tener instalado en tu máquina:
 
 ---
 
-## 2. 📂 Crear un proyecto Maven
+## 2. Crear un proyecto Maven
 Ejecuta en la terminal:
 
 ```sh
@@ -370,7 +386,7 @@ MiProyectoMaven/
 
 ---
 
-## 3. ⚙️ Archivo `pom.xml`
+## 3. Archivo `pom.xml`
 Ejemplo básico con plugin para ejecutar el proyecto:
 
 ```xml
@@ -420,7 +436,7 @@ Ejemplo básico con plugin para ejecutar el proyecto:
 
 ---
 
-## 4. 🏗️ Compilar y ejecutar
+## 4. Compilar y ejecutar
 - Compilar:
 ```sh
 mvn compile
@@ -460,7 +476,7 @@ mvn exec:java -Dexec.mainClass="com.ejemplo.app.App" -Dexec.args="arg1 arg2"
 
 ---
 
-## 5. 🚀 Crear repositorio Git
+## 5. Crear repositorio Git
 
 1. Inicializar Git en el proyecto:
 ```sh
@@ -498,7 +514,7 @@ git push -u origin main
 
 ---
 
-## ✅ Resumen de flujo Maven + Git
+## Resumen de flujo Maven + Git
 1. Crear proyecto → `mvn archetype:generate`  
 2. Compilar → `mvn compile`  
 3. Probar → `mvn test`  
@@ -512,7 +528,7 @@ Con esto ya tendrás un **proyecto Maven configurado, ejecutable y versionado en
 
 ---
 
-## 📚 Recursos
+## Recursos
 
 - [Documentación oficial de Maven](https://maven.apache.org/)
 - [Repositorio Central Maven](https://search.maven.org/)
