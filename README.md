@@ -7,7 +7,7 @@ Este taller tiene como propósito nivelar conocimientos fundamentales en Java y 
 
 ## Cómo ejecutar este proyecto
 
-Este repositorio (`co.edu.unisabana` / `GestorEstudiantes`) requiere **JDK 17** y **Maven 3.x**. Desde la raíz del proyecto:
+Este repositorio (`co.edu.unisabana` / `GestorEstudiantes`) requiere **JDK 21** y **Maven 3.9** o superior. Desde la raíz del proyecto:
 
 ```bash
 mvn compile          # compila el código fuente
@@ -210,7 +210,7 @@ Debe mostrar:
 
 ```
 Apache Maven 3.9.X
-Java version: 17.X
+Java version: 21.X
 ```
 
 Si todo eso funciona correctamente, ya estás listo para compilar tus proyectos.
@@ -361,7 +361,7 @@ Este documento explica cómo **crear un proyecto Maven desde cero**, configurarl
 
 ## 1. Requisitos previos
 Asegúrate de tener instalado en tu máquina:
-- **Java JDK** (versión 8 o superior) → `java -version`
+- **Java JDK 21** → `java -version`
 - **Maven** (Apache Maven 3.x o superior) → `mvn -version`
 - **Git** → `git --version`
 - Una cuenta en [GitHub](https://github.com/)
@@ -404,8 +404,7 @@ Ejemplo básico con plugin para ejecutar el proyecto:
 
   <properties>
     <!-- Configuración del compilador Java -->
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.release>21</maven.compiler.release>
   </properties>
 
   <dependencies>
@@ -527,6 +526,27 @@ git push -u origin main
 Con esto ya tendrás un **proyecto Maven configurado, ejecutable y versionado en GitHub** como guía de referencia.
 
 ---
+
+## Para entregar
+
+Entregue el enlace al repositorio de GitHub creado en la sección 5 de la guía, con un `INFORME.md` en la raíz que incluya los comandos ejecutados y su salida.
+
+### Criterios de evaluación
+
+* Ambiente.
+	1. `java -version` y `mvn -version` muestran JDK 21 y Maven 3.9 o superior.
+* Parte 1: Java sin Maven.
+	1. El proyecto compila con `javac` y se ejecuta con `java -cp`.
+	2. El `.jar` se ejecuta con `java -jar` gracias al `MANIFEST.MF` con `Main-Class`.
+* Programación orientada a objetos.
+	1. Hay al menos una clase con atributos privados y métodos de acceso (encapsulamiento).
+	2. Hay una jerarquía con herencia y un método sobrescrito que se invoca de forma polimórfica.
+* Parte 2: Maven.
+	1. `mvn package` genera el `.jar` y `mvn exec:java` ejecuta la aplicación.
+	2. `mvn test` ejecuta al menos dos pruebas JUnit propias, y todas pasan.
+* Git y GitHub.
+	1. El `.gitignore` excluye `target/` y los archivos del IDE.
+	2. El historial tiene al menos tres commits con mensajes que describen el cambio.
 
 ## Recursos
 
